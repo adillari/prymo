@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Centered 3D Box Truck</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      background: linear-gradient(#87ceeb 70%, #228B22 30%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      font-family: sans-serif;
+      -webkit-font-smoothing: antialiased; /* Smooth text rendering */
+      image-rendering: auto; /* Smoother graphics */
+    }
+
+    .road {
+      position: absolute;
+      top: 60%; /* Centers the road under the truck */
+      width: 100vw;
+      height: 120px;
+      background: repeating-linear-gradient(
+        to right,
+        #444 0px,
+        #444 40px,
+        #555 40px,
+        #555 80px
+      );
+      animation: scroll-road 1s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes scroll-road {
+      0% { background-position-x: 0; }
+      100% { background-position-x: 80px; } /* Moves right to create forward motion */
+    }
+
+    .scene {
+      position: relative;
+      z-index: 1;
+      animation: bounce 1.5s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .truck {
+      position: relative;
+      width: 500px;
+      height: 180px;
+      transform-style: preserve-3d;
+      transform: rotateX(2deg) rotateY(-6deg); /* Reduced rotation for smoother edges */
+      will-change: transform; /* Optimize rendering */
+    }
+
+    .truck,
+    .box,
+    .cab {
+      backface-visibility: hidden; /* Prevents blurry 3D artifacts */
+    }
+
+    .box {
+      position: absolute;
+      left: 100px;
+      top: 0;
+      width: 360px;
+      height: 120px;
+      background: #ddd;
+      border-radius: 6px;
+      box-shadow: -8px 8px 0 #bbb inset;
+    }
+
+    .cab {
+      position: absolute;
+      left: 0;
+      top: 30px;
+      width: 100px;
+      height: 90px;
+      background: #c0392b;
+      border-radius: 8px 0 0 8px;
+      box-shadow: -6px 6px 0 #a32a1e inset;
+    }
+
+    .window {
+      position: absolute;
+      width: 60px;
+      height: 30px;
+      top: 10px;
+      left: 20px;
+      background: #add8e6;
+      border-radius: 4px;
+      box-shadow: inset -2px -2px 5px #6ab0d4;
+    }
+
+    .wheel {
+      width: 50px;
+      height: 50px;
+      background: #222;
+      border-radius: 50%;
+      position: absolute;
+      bottom: -25px;
+      animation: spin 0.5s linear infinite;
+      box-shadow: inset 0 0 10px #555;
+    }
+
+    .wheel:after {
+      content: "";
+      width: 10px;
+      height: 10px;
+      background: #ccc;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .wheel.front-left { left: 15px; }
+    .wheel.back-left  { left: 110px; }
+    .wheel.back-right { left: 370px; }
+    .wheel.front-right { left: 450px; }
+
+    @keyframes spin {
+      0% { transform: rotate(360deg); }
+      100% { transform: rotate(0deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="road"></div>
+  <div class="scene">
+    <div class="truck">
+      <div class="box"></div>
+      <div class="cab">
+        <div class="window"></div>
+      </div>
+      <div class="wheel front-left"></div>
+      <div class="wheel front-right"></div>
+      <div class="wheel back-left"></div>
+      <div class="wheel back-right"></div>
+    </div>
+  </div>
+</body>
+</html>
