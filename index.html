@@ -50,13 +50,13 @@
 
     @keyframes bounce {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
+      50% { transform: translateY(-10px); }
     }
 
     .truck {
       position: relative;
-      width: 500px;
-      height: 180px;
+      width: 100%;
+      height: 100%;
       transform-style: preserve-3d;
       transform: rotateX(2deg) rotateY(-6deg); /* Reduced rotation for smoother edges */
       will-change: transform; /* Optimize rendering */
@@ -70,10 +70,10 @@
 
     .box {
       position: absolute;
-      left: 100px;
-      top: 0;
-      width: 360px;
-      height: 120px;
+      left: 50%;
+      top: 20%;
+      width: 80%;
+      aspect-ratio: 5 / 4;
       background: #ddd;
       border-radius: 6px;
       box-shadow: -8px 8px 0 #bbb inset;
