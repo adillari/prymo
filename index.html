@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Centered 3D Box Truck</title>
+  <title>Prymo</title>
   <style>
     * { box-sizing: border-box; }
 
@@ -11,112 +11,119 @@
       margin: 0;
       height: 100vh;
       overflow: hidden;
-      background: linear-gradient(#87ceeb 70%, #228B22 30%);
+      background: linear-gradient(#87ceeb 50%, #228B22 50%);
       display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
       font-family: sans-serif;
-      -webkit-font-smoothing: antialiased; /* Smooth text rendering */
-      image-rendering: auto; /* Smoother graphics */
+      position: relative;
     }
 
+    /* Real road full width at bottom */
     .road {
       position: absolute;
-      top: 60%; /* Centers the road under the truck */
+      bottom: -10%;
       width: 100vw;
-      height: 120px;
-      background: repeating-linear-gradient(
-        to right,
-        #444 0px,
-        #444 40px,
-        #555 40px,
-        #555 80px
-      );
-      animation: scroll-road 1s linear infinite;
-      z-index: 0;
+      aspect-ratio: 5/1;
+      background: #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      z-index: -1;
     }
 
-    @keyframes scroll-road {
+    .lane-line {
+      width: 100%;
+      height: 2%;
+      background: repeating-linear-gradient(
+        to right,
+        white 0 10%,
+        transparent 10% 20%
+      );
+      animation: move-lane .15s linear infinite;
+    }
+
+    @keyframes move-lane {
       0% { background-position-x: 0; }
-      100% { background-position-x: 80px; } /* Moves right to create forward motion */
+      100% { background-position-x: 40px; }
     }
 
     .scene {
       position: relative;
+      width: 80vw;
       z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .truck {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 2.5/1;
+      transform-style: preserve-3d;
       animation: bounce 1.5s ease-in-out infinite;
     }
 
     @keyframes bounce {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
-    }
-
-    .truck {
-      position: relative;
-      width: 500px;
-      height: 180px;
-      transform-style: preserve-3d;
-      transform: rotateX(2deg) rotateY(-6deg); /* Reduced rotation for smoother edges */
-      will-change: transform; /* Optimize rendering */
-    }
-
-    .truck,
-    .box,
-    .cab {
-      backface-visibility: hidden; /* Prevents blurry 3D artifacts */
+      50% { transform: translateY(-3%); }
     }
 
     .box {
       position: absolute;
-      left: 100px;
-      top: 0;
-      width: 360px;
-      height: 120px;
+      left: 25%;
+      top: 14%;
+      width: 70%;
+      height: 66%;
       background: #ddd;
-      border-radius: 6px;
-      box-shadow: -8px 8px 0 #bbb inset;
+      border-radius: 1vw;
+      box-shadow: -0.5vw 0.5vw 0 #bbb inset;
+      background-image: repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.05) 0px, rgba(0, 0, 0, 0.05) 0.5px, rgba(0, 0, 0, 0) 0.5px, rgba(0, 0, 0, 0) 1px);
     }
 
     .cab {
       position: absolute;
       left: 0;
-      top: 30px;
-      width: 100px;
-      height: 90px;
+      top: 20%;
+      width: 25%;
+      height: 60%;
       background: #c0392b;
-      border-radius: 8px 0 0 8px;
-      box-shadow: -6px 6px 0 #a32a1e inset;
+      border-radius: 1vw 0 0 1vw;
+      box-shadow: -0.4vw 0.4vw 0 #a32a1e inset;
+      background-image: repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.05) 0px, rgba(0, 0, 0, 0.05) 0.5px, rgba(0, 0, 0, 0) 0.5px, rgba(0, 0, 0, 0) 1px);
     }
 
     .window {
       position: absolute;
-      width: 60px;
-      height: 30px;
-      top: 10px;
-      left: 20px;
+      width: 60%;
+      height: 35%;
+      top: 15%;
+      left: 20%;
       background: #add8e6;
-      border-radius: 4px;
-      box-shadow: inset -2px -2px 5px #6ab0d4;
+      border-radius: 0.5vw;
+      box-shadow: inset -0.2vw -0.2vw 0.5vw #6ab0d4;
+      background-image: repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.05) 0px, rgba(0, 0, 0, 0.05) 0.5px, rgba(0, 0, 0, 0) 0.5px, rgba(0, 0, 0, 0) 1px);
     }
 
     .wheel {
-      width: 50px;
-      height: 50px;
+      width: 14%;
+      aspect-ratio: 1/1;
       background: #222;
       border-radius: 50%;
       position: absolute;
-      bottom: -25px;
+      bottom: -7%;
       animation: spin 0.5s linear infinite;
-      box-shadow: inset 0 0 10px #555;
+      box-shadow: inset 0 0 0.5vw #555;
+      background-image: repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.05) 0px, rgba(0, 0, 0, 0.05) 1px, rgba(0, 0, 0, 0) 0.5px, rgba(0, 0, 0, 0) 1px);
     }
 
     .wheel:after {
       content: "";
-      width: 10px;
-      height: 10px;
-      background: #ccc;
+      width: 30%;
+      height: 30%;
+      background: #aaa;
       border-radius: 50%;
       position: absolute;
       top: 50%;
@@ -124,8 +131,8 @@
       transform: translate(-50%, -50%);
     }
 
-    .wheel.left { left: 15px; }
-    .wheel.right { left: 370px; }
+    .wheel.left { left: 5%; }
+    .wheel.right { right: 5%; }
 
     @keyframes spin {
       0% { transform: rotate(360deg); }
@@ -134,7 +141,6 @@
   </style>
 </head>
 <body>
-  <div class="road"></div>
   <div class="scene">
     <div class="truck">
       <div class="box"></div>
@@ -144,6 +150,9 @@
       <div class="wheel left"></div>
       <div class="wheel right"></div>
     </div>
+      <div class="road">
+        <div class="lane-line"></div>
+      </div>
   </div>
 </body>
 </html>
