@@ -11,7 +11,9 @@
       margin: 0;
       height: 100vh;
       overflow: hidden;
-      background: linear-gradient(#87ceeb 70%, #228B22 30%);
+      background: #2b2b2b;
+      background: linear-gradient(0deg,rgba(43, 43, 43, 1) 0%, rgba(84, 84, 84, 1) 100%);
+      // background: linear-gradient(#87ceeb 50%, #228B22 50%);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -19,10 +21,9 @@
       position: relative;
     }
 
-    /* Real road full width at bottom */
     .road {
       position: absolute;
-      bottom: -40%;
+      bottom: -10%;
       width: 100vw;
       aspect-ratio: 5/1;
       background: #333;
@@ -36,11 +37,6 @@
     .lane-line {
       width: 100%;
       height: 2%;
-      background: repeating-linear-gradient(
-        to right,
-        white 0 10%,
-        transparent 10% 20%
-      );
       animation: move-lane .15s linear infinite;
     }
 
@@ -68,22 +64,23 @@
 
     @keyframes bounce {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-3%); }
+      50% { transform: translateY(-1%); }
     }
 
     .box {
       position: absolute;
       left: 25%;
       top: 14%;
-      width: 70%;
+      width: 50%;
       height: 66%;
       background: #ddd;
-      border-radius: 1vw;
+      border-radius: 1vw 1vw 1vw 0;
       box-shadow: -0.5vw 0.5vw 0 #bbb inset;
       background-image: repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.05) 0px, rgba(0, 0, 0, 0.05) 0.5px, rgba(0, 0, 0, 0) 0.5px, rgba(0, 0, 0, 0) 1px);
     }
 
     .cab {
+      clip-path: polygon(64% 16%, 71% 13%, 100% 9%, 100% 100%, 8% 100%, 4% 96%, 4% 88%, 4% 81%, 8% 71%, 34% 51%);
       position: absolute;
       left: 0;
       top: 20%;
@@ -100,7 +97,7 @@
       width: 60%;
       height: 35%;
       top: 15%;
-      left: 20%;
+      left: 30%;
       background: #add8e6;
       border-radius: 0.5vw;
       box-shadow: inset -0.2vw -0.2vw 0.5vw #6ab0d4;
@@ -108,12 +105,12 @@
     }
 
     .wheel {
-      width: 14%;
+      width: 10%;
       aspect-ratio: 1/1;
       background: #222;
       border-radius: 50%;
       position: absolute;
-      bottom: -7%;
+      bottom: 6%;
       animation: spin 0.5s linear infinite;
       box-shadow: inset 0 0 0.5vw #555;
       background-image: repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.05) 0px, rgba(0, 0, 0, 0.05) 1px, rgba(0, 0, 0, 0) 0.5px, rgba(0, 0, 0, 0) 1px);
@@ -131,8 +128,8 @@
       transform: translate(-50%, -50%);
     }
 
-    .wheel.left { left: 5%; }
-    .wheel.right { right: 5%; }
+    .wheel.left { left: 8%; }
+    .wheel.right { right: 30%; }
 
     @keyframes spin {
       0% { transform: rotate(360deg); }
@@ -150,9 +147,9 @@
       <div class="wheel left"></div>
       <div class="wheel right"></div>
     </div>
-      <div class="road">
+      <!-- <div class="road">
         <div class="lane-line"></div>
-      </div>
+      </div> -->
   </div>
 </body>
 </html>
